@@ -1,15 +1,14 @@
 ﻿MenuOption userChoice;
 do
 {
-    Console.WriteLine("1. Display all movies sorted by rating in descending order.");
-    Console.WriteLine("2. Search movies by genre.");
-    Console.WriteLine("3. Find the top-rated movie using LINQ.");
-    Console.WriteLine("4. Generate a random movie recommendation.");
-    Console.WriteLine("5. Add a new movie with user input and save it to the file.");
-    Console.WriteLine("6. Exit the program.");
-    Console.Write("Enter Your Choice: ");
+    DisplayMenu();
     userChoice = GetChoiceFromUser();
-    Console.Clear();
+    HandleMenuOption(userChoice);
+
+} while (userChoice != MenuOption.Exit);
+
+void HandleMenuOption(MenuOption menuOption)
+{
     switch (userChoice)
     {
         case MenuOption.DisplayAllMovies:
@@ -28,14 +27,23 @@ do
             DisplayErrorMessage("Invalid Input, Please Try Again...");
             break;
     }
-} while (userChoice != MenuOption.Exit);
+}
 
+void DisplayMenu()
+{
+    Console.WriteLine("1. Display all movies sorted by rating in descending order.");
+    Console.WriteLine("2. Search movies by genre.");
+    Console.WriteLine("3. Find the top-rated movie using LINQ.");
+    Console.WriteLine("4. Generate a random movie recommendation.");
+    Console.WriteLine("5. Add a new movie with user input and save it to the file.");
+    Console.WriteLine("6. Exit the program.");
+}
 
 void DisplayErrorMessage(string errorMessage)
 {
     Console.ForegroundColor = ConsoleColor.Red;
     Console.Write("[error] ");
-    Console.ForegroundColor = ConsoleColor.White;
+    Console.ResetColor();
     Console.WriteLine(errorMessage);
 }
 
@@ -45,13 +53,13 @@ MenuOption GetChoiceFromUser()
     Console.Write("Enter your choice: ");
     if (Enum.TryParse(Console.ReadLine(), out userChoice))
     {
-        return userChoice;
+        if (Enum.IsDefined(typeof(MenuOption), userChoice))
+            return userChoice;
     }
-    else
-    {
-        DisplayErrorMessage("Invalid Input, Please Try Again...");
-        return GetChoiceFromUser();
-    }
+    Console.Clear();
+    DisplayErrorMessage("Invalid Input, Please Try Again...");
+    DisplayMenu();
+    return GetChoiceFromUser();
 }
 
 enum MenuOption
