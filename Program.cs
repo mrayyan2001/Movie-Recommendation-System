@@ -1,4 +1,4 @@
-﻿string? userChoice;
+﻿MenuOption userChoice;
 do
 {
     Console.WriteLine("1. Display all movies sorted by rating in descending order.");
@@ -8,27 +8,27 @@ do
     Console.WriteLine("5. Add a new movie with user input and save it to the file.");
     Console.WriteLine("6. Exit the program.");
     Console.Write("Enter Your Choice: ");
-    userChoice = Console.ReadLine();
+    userChoice = GetChoiceFromUser();
     Console.Clear();
     switch (userChoice)
     {
-        case "1":
+        case MenuOption.DisplayAllMovies:
             break;
-        case "2":
+        case MenuOption.SearchMoviesByGenre:
             break;
-        case "3":
+        case MenuOption.FindTopRatedMovie:
             break;
-        case "4":
+        case MenuOption.GenerateRandomRecommendation:
             break;
-        case "5":
+        case MenuOption.AddNewMovie:
             break;
-        case "6":
+        case MenuOption.Exit:
             break;
         default:
             DisplayErrorMessage("Invalid Input, Please Try Again...");
             break;
     }
-} while (userChoice != "6");
+} while (userChoice != MenuOption.Exit);
 
 
 void DisplayErrorMessage(string errorMessage)
@@ -37,4 +37,29 @@ void DisplayErrorMessage(string errorMessage)
     Console.Write("[error] ");
     Console.ForegroundColor = ConsoleColor.White;
     Console.WriteLine(errorMessage);
+}
+
+MenuOption GetChoiceFromUser()
+{
+    MenuOption userChoice;
+    Console.Write("Enter your choice: ");
+    if (Enum.TryParse(Console.ReadLine(), out userChoice))
+    {
+        return userChoice;
+    }
+    else
+    {
+        DisplayErrorMessage("Invalid Input, Please Try Again...");
+        return GetChoiceFromUser();
+    }
+}
+
+enum MenuOption
+{
+    DisplayAllMovies = 1,
+    SearchMoviesByGenre,
+    FindTopRatedMovie,
+    GenerateRandomRecommendation,
+    AddNewMovie,
+    Exit
 }
