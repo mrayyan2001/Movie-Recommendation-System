@@ -56,7 +56,7 @@
 56,The Secret Life of Walter Mitty,Adventure,4.7
 57,La La Land,Musical,4.6
 58,The Martian,Sci-Fi,4.7
-59,The Good, the Bad and the Ugly,Western,4.9
+59,The Good the Bad and the Ugly,Western,4.9
 60,The Bourne Identity,Action,4.6
 61,The Maze Runner,Sci-Fi,4.6
 62,The Great Gatsby,Drama,4.6
@@ -85,7 +85,7 @@
 85,The Wolfpack,Documentary,4.5
 86,The Unbearable Weight of Massive Talent,Comedy,4.5
 87,The Devil Wears Prada,Comedy,4.5
-88,The Chronicles of Narnia: The Lion, the Witch and the Wardrobe,Fantasy,4.7
+88,The Chronicles of Narnia: The Lion the Witch and the Wardrobe,Fantasy,4.7
 89,The Equalizer,Action,4.6
 90,The Expendables,Action,4.5
 91,The Man from U.N.C.L.E.,Action,4.6

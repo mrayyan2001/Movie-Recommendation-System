@@ -12,6 +12,8 @@ void HandleMenuOption(MenuOption menuOption)
     switch (userChoice)
     {
         case MenuOption.DisplayAllMovies:
+            List<Movie> movies = File.ReadAllLines("./movies.txt").Select(x => Movie.MovieFromString(x)).ToList();
+            movies.ForEach(x => Console.WriteLine(x));
             break;
         case MenuOption.SearchMoviesByGenre:
             break;
