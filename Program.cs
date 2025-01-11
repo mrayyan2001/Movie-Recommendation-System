@@ -5,6 +5,7 @@ do
     userChoice = GetChoiceFromUser();
     Console.WriteLine(new string('-', 50));
     HandleMenuOption(userChoice);
+    Console.WriteLine(new string('-', 50));
 
 } while (userChoice != MenuOption.Exit);
 
@@ -21,6 +22,7 @@ void HandleMenuOption(MenuOption menuOption)
             DisplayMovies(TopRatedMovie(ReadInteger("How Many Movies? ")));
             break;
         case MenuOption.GenerateRandomRecommendation:
+            Console.WriteLine(GenerateRandomMovieRecommendation());
             break;
         case MenuOption.AddNewMovie:
             break;
@@ -46,6 +48,13 @@ int ReadInteger(string promptMessage)
         DisplayErrorMessage("Invalid Input");
         return ReadInteger(promptMessage);
     }
+}
+
+Movie GenerateRandomMovieRecommendation()
+{
+    Random random = new Random();
+    List<Movie> movies = ImportMovies("./movies.txt");
+    return movies.ElementAt(random.Next(0, movies.Count));
 }
 
 List<Movie> ImportMovies(string filePath)
