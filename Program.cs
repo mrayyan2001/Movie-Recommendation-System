@@ -18,6 +18,7 @@ void HandleMenuOption(MenuOption menuOption)
         case MenuOption.SearchMoviesByGenre:
             break;
         case MenuOption.FindTopRatedMovie:
+            DisplayMovies(TopRatedMovie(ReadInteger("How Many Movies? ")));
             break;
         case MenuOption.GenerateRandomRecommendation:
             break;
@@ -31,11 +32,43 @@ void HandleMenuOption(MenuOption menuOption)
     }
 }
 
+int ReadInteger(string promptMessage)
+{
+    Console.Write(promptMessage);
+    int userInput;
+    try
+    {
+        userInput = Convert.ToInt32(Console.ReadLine());
+        return userInput;
+    }
+    catch
+    {
+        DisplayErrorMessage("Invalid Input");
+        return ReadInteger(promptMessage);
+    }
+}
+
+List<Movie> ImportMovies(string filePath)
+{
+    return File.ReadAllLines("./movies.txt").Select(
+        x => Movie.MovieFromString(x)).ToList();
+}
+
+List<Movie> TopRatedMovie(int size = 10)
+{
+    return ImportMovies("./movies.txt").OrderByDescending(x => x.Rating).Take(size).ToList();
+}
+
+void DisplayMovies(List<Movie> movies)
+{
+    Console.WriteLine($"{"ID",3} {"Title",-50} {"Genre",-10} {"Rating",4}");
+    movies.ForEach(x => Console.WriteLine(x));
+}
+
 void DisplayAllMovies()
 {
-    List<Movie> movies = File.ReadAllLines("./movies.txt").Select(
-        x => Movie.MovieFromString(x)).OrderByDescending(x => x.Rating).ToList();
-    movies.ForEach(x => Console.WriteLine(x));
+    List<Movie> movies = ImportMovies("./movies.txt").OrderByDescending(x => x.Rating).ToList();
+    DisplayMovies(movies);
 }
 
 void DisplayMenu()
