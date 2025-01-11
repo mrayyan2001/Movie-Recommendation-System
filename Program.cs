@@ -3,6 +3,7 @@ do
 {
     DisplayMenu();
     userChoice = GetChoiceFromUser();
+    Console.WriteLine(new string('-', 50));
     HandleMenuOption(userChoice);
 
 } while (userChoice != MenuOption.Exit);
@@ -12,8 +13,7 @@ void HandleMenuOption(MenuOption menuOption)
     switch (userChoice)
     {
         case MenuOption.DisplayAllMovies:
-            List<Movie> movies = File.ReadAllLines("./movies.txt").Select(x => Movie.MovieFromString(x)).ToList();
-            movies.ForEach(x => Console.WriteLine(x));
+            DisplayAllMovies();
             break;
         case MenuOption.SearchMoviesByGenre:
             break;
@@ -29,6 +29,13 @@ void HandleMenuOption(MenuOption menuOption)
             DisplayErrorMessage("Invalid Input, Please Try Again...");
             break;
     }
+}
+
+void DisplayAllMovies()
+{
+    List<Movie> movies = File.ReadAllLines("./movies.txt").Select(
+        x => Movie.MovieFromString(x)).OrderByDescending(x => x.Rating).ToList();
+    movies.ForEach(x => Console.WriteLine(x));
 }
 
 void DisplayMenu()
