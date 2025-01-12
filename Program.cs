@@ -1,4 +1,6 @@
-﻿MenuOption userChoice;
+﻿using System.Runtime.Intrinsics.Arm;
+
+MenuOption userChoice;
 do
 {
     DisplayMenu();
@@ -28,6 +30,16 @@ void HandleMenuOption(MenuOption menuOption)
             Console.WriteLine(GenerateRandomMovieRecommendation());
             break;
         case MenuOption.AddNewMovie:
+            Console.Write("Title: ");
+            string title = Console.ReadLine();
+            Console.Write("Genre: ");
+            string genre = Console.ReadLine();
+            Console.Write("Rating: ");
+            float rating = Convert.ToSingle(Console.ReadLine());
+            // Unique ID
+            int id = ImportMovies("./movies.txt").MaxBy(x => x.ID).ID + 1;
+            // Append to file
+            File.AppendAllText("./movies.txt", $"{id},{title},{genre},{rating}");
             break;
         case MenuOption.Exit:
             break;
