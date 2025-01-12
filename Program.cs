@@ -17,6 +17,9 @@ void HandleMenuOption(MenuOption menuOption)
             DisplayAllMovies();
             break;
         case MenuOption.SearchMoviesByGenre:
+            Console.Write("Enter a Genre ");
+            string? userInput = Console.ReadLine();
+            DisplayMovies(ImportMovies("./movies.txt").Where(x => x.Genre.ToLower() == userInput.ToLower()).ToList());
             break;
         case MenuOption.FindTopRatedMovie:
             DisplayMovies(TopRatedMovie(ReadInteger("How Many Movies? ")));
