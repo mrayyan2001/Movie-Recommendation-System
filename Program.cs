@@ -34,18 +34,35 @@ void HandleMenuOption(MenuOption menuOption)
             string title = Console.ReadLine();
             Console.Write("Genre: ");
             string genre = Console.ReadLine();
-            Console.Write("Rating: ");
-            float rating = Convert.ToSingle(Console.ReadLine());
+            float rating = GetRating("Rating: ");
             // Unique ID
             int id = ImportMovies("./movies.txt").MaxBy(x => x.ID).ID + 1;
             // Append to file
-            File.AppendAllText("./movies.txt", $"{id},{title},{genre},{rating}");
+            File.AppendAllText("./movies.txt", $"\n{id},{title},{genre},{rating}");
             break;
         case MenuOption.Exit:
             break;
         default:
             DisplayErrorMessage("Invalid Input, Please Try Again...");
             break;
+    }
+}
+
+float GetRating(string promptMessage)
+{
+    Console.Write(promptMessage);
+    float userInput;
+    try
+    {
+        userInput = Convert.ToSingle(Console.ReadLine());
+        if (!Movie.CheckRating(userInput))
+            throw new Exception("Invalid input.");
+        return userInput;
+    }
+    catch
+    {
+        DisplayErrorMessage("Invalid Input");
+        return ReadInteger(promptMessage);
     }
 }
 

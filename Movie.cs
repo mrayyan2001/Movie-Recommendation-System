@@ -1,4 +1,4 @@
-struct Movie
+public struct Movie
 {
     public int ID { get; set; }
     public string Title { get; set; }
@@ -8,6 +8,13 @@ struct Movie
     public override string ToString()
     {
         return $"{ID,3} {Title,-50} {Genre,-10} {Rating,4}";
+    }
+
+    public static bool CheckRating(float rating)
+    {
+        if (rating > 5 || rating < 0)
+            return false;
+        return true;
     }
 
     public static Movie MovieFromString(string str)
